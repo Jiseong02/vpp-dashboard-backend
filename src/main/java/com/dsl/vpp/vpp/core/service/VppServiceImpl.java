@@ -7,6 +7,8 @@ import com.dsl.vpp.vpp.core.value.VppInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class VppServiceImpl implements VppService {
     VppRepository vppRepository;
@@ -27,6 +29,11 @@ public class VppServiceImpl implements VppService {
         VppEntity vpp = vppRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 VPP 아이디입니다."));
         return VppMapper.mapToValue(vpp);
+    }
+
+    @Override
+    public List<VppInfo> readAll() {
+        return VppMapper.mapToValue(vppRepository.findAll());
     }
 
     @Override

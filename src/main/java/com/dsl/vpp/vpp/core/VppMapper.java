@@ -22,6 +22,12 @@ public class VppMapper {
                 .build();
     }
 
+    public static List<VppInfo> mapToValue(List<VppEntity> vpps) {
+        return vpps.stream()
+                .map(VppMapper::mapToValue)
+                .collect(Collectors.toList());
+    }
+
     public static VppEntity mapToEntity(VppInfo vpp) {
         return VppEntity.builder()
                 .id(vpp.getId())
@@ -33,6 +39,7 @@ public class VppMapper {
                 .id(vpp.getId())
                 .build();
     }
+
     public static VppReadListResponseDto mapToDto(List<VppInfo> vpps) {
         return VppReadListResponseDto.builder()
                 .vpps(vpps.stream()
