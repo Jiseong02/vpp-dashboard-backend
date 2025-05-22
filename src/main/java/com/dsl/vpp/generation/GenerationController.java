@@ -6,9 +6,12 @@ import com.dsl.vpp.generation.service.GenerationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 public class GenerationController {
@@ -20,7 +23,7 @@ public class GenerationController {
     }
 
     @PostMapping("/gens")
-    ResponseEntity<String> create(GenerationCreateRequestDto createRequest) {
+    ResponseEntity<String> create(@RequestBody GenerationCreateRequestDto createRequest) {
         return ResponseEntity.ok().body(generationService.create(GenerationMapper.mapToValue(createRequest)));
     }
     @GetMapping("/gens")
@@ -41,5 +44,19 @@ public class GenerationController {
             return ResponseEntity.ok().body(GenerationMapper.mapToDto(generationService.readByVppBetween(vppId, start, end)));
         }
         return ResponseEntity.ok().body(GenerationMapper.mapToDto(generationService.readBetween(start, end)));
+    }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<String> handleRuntimeException(RuntimeException e) {
+        return ResponseEntity.badRequest().body(e.getMessage());
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex) {
+        Map<String, String> errors = new HashMap<>();
+        ex.getBindingResult().getFieldErrors().forEach(error ->
+                errors.put(error.getField(), error.getDefaultMessage())
+        );
+        return ResponseEntity.badRequest().body(errors);
     }
 }
