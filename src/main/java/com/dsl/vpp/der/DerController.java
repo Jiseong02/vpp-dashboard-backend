@@ -21,16 +21,25 @@ public class DerController {
     ResponseEntity<String> create(@RequestBody DerCreateRequestDto createRequestDto) {
         return ResponseEntity.ok().body(derService.create(DerMapper.mapToValue(createRequestDto)));
     }
+
+    @GetMapping("/ders")
+    ResponseEntity<DerReadListResponseDto> read() {
+        return ResponseEntity.ok().body(DerMapper.mapToDto(derService.readAll()));
+    }
+
     @GetMapping("/ders/{id}")
     ResponseEntity<DerReadResponseDto> read(@PathVariable String id) {
         return ResponseEntity.ok().body(DerMapper.mapToDto(derService.readById(id)));
     }
+
+    @GetMapping("/vpps/{vppId}/ders")
+    ResponseEntity<DerReadListResponseDto> readByVppId(@PathVariable String vppId) {
+        return ResponseEntity.ok().body(DerMapper.mapToDto(derService.readByVppId(vppId)));
+    }
+
     @DeleteMapping("/ders/{id}")
     ResponseEntity<Void> delete(@PathVariable String id) {
         derService.deleteById(id);
         return ResponseEntity.ok().build();
     }
-    @GetMapping("/vpps/{vppId}/ders")
-    ResponseEntity<DerReadListResponseDto> readByVppId(@PathVariable String vppId) {
-        return ResponseEntity.ok().body(DerMapper.mapToDto(derService.readByVppId(vppId)));
-    }}
+}

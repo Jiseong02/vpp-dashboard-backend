@@ -7,12 +7,14 @@ import java.util.List;
 public interface DerService {
     String create(DerInfo der);
     DerInfo readById(String id);
+    List<DerInfo> readAll();
     List<DerInfo> readByVppId(String vppId);
     void deleteById(String id);
     void register(String id, String vppId);
     void unregister(String id);
 
     void validateIdExists(String id);
+
 
 
 }

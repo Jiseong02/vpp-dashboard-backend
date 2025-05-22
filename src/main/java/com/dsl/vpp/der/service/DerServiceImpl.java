@@ -33,6 +33,11 @@ public class DerServiceImpl implements DerService {
     }
 
     @Override
+    public List<DerInfo> readAll() {
+        return DerMapper.mapToValue(derRepository.findAll());
+    }
+
+    @Override
     public List<DerInfo> readByVppId(String vppId) {
         return DerMapper.mapToValue(derRepository.findByVppId(vppId));
     }
