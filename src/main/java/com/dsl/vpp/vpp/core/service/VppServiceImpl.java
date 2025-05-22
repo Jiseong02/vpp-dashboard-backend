@@ -3,19 +3,16 @@ package com.dsl.vpp.vpp.core.service;
 import com.dsl.vpp.vpp.core.VppEntity;
 import com.dsl.vpp.vpp.core.VppMapper;
 import com.dsl.vpp.vpp.core.VppRepository;
-import com.dsl.vpp.vpp.allocation.service.AllocationService;
 import com.dsl.vpp.vpp.core.value.VppInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class VppServiceImpl implements VppService {
-    AllocationService allocationService;
     VppRepository vppRepository;
 
     @Autowired
-    public VppServiceImpl(AllocationService allocationService, VppRepository vppRepository) {
-        this.allocationService = allocationService;
+    public VppServiceImpl(VppRepository vppRepository) {
         this.vppRepository = vppRepository;
     }
 

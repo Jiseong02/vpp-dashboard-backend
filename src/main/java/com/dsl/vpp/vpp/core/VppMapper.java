@@ -1,8 +1,13 @@
 package com.dsl.vpp.vpp.core;
 
 import com.dsl.vpp.vpp.core.dto.request.VppCreateRequestDto;
-import com.dsl.vpp.vpp.core.dto.VppReadResponseDto;
+import com.dsl.vpp.vpp.core.dto.response.VppReadListResponseDto;
+import com.dsl.vpp.vpp.core.dto.response.VppReadResponseDto;
 import com.dsl.vpp.vpp.core.value.VppInfo;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class VppMapper {
     public static VppInfo mapToValue(VppCreateRequestDto vppCreateRequest) {
@@ -26,6 +31,14 @@ public class VppMapper {
     public static VppReadResponseDto mapToDto(VppInfo vpp) {
         return VppReadResponseDto.builder()
                 .id(vpp.getId())
+                .build();
+    }
+    public static VppReadListResponseDto mapToDto(List<VppInfo> vpps) {
+        return VppReadListResponseDto.builder()
+                .vpps(vpps.stream()
+                        .map(VppMapper::mapToDto)
+                        .collect(Collectors.toCollection(ArrayList::new))
+                )
                 .build();
     }
 }

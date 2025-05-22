@@ -6,9 +6,11 @@ import com.dsl.vpp.der.DerRepository;
 import com.dsl.vpp.der.value.DerInfo;
 import com.dsl.vpp.vpp.core.VppEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class DerServiceImpl implements DerService {
     DerRepository derRepository;
 

@@ -2,7 +2,6 @@ package com.dsl.vpp.vpp;
 
 import com.dsl.vpp.der.service.DerService;
 import com.dsl.vpp.der.service.DerServiceImpl;
-import com.dsl.vpp.vpp.allocation.service.AllocationService;
 import com.dsl.vpp.vpp.core.VppEntity;
 import com.dsl.vpp.vpp.core.VppRepository;
 import com.dsl.vpp.vpp.core.service.VppService;
@@ -22,8 +21,7 @@ import static org.mockito.Mockito.*;
 public class TestVppService {
     VppRepository vppRepository = mock(VppRepository.class);
     DerService derService = mock(DerServiceImpl.class);
-    AllocationService allocationService = mock(AllocationService.class);
-    VppService vppService = new VppServiceImpl(allocationService, vppRepository);
+    VppService vppService = new VppServiceImpl(vppRepository);
 
     @BeforeEach
     void setUp() {

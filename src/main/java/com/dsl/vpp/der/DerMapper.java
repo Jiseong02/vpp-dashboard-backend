@@ -44,13 +44,12 @@ public class DerMapper {
                 .build();
     }
 
-    public static DerReadListResponseDto mapToDto(List<DerInfo> derInfos) {
-        ArrayList<DerReadResponseDto> ders = derInfos.stream()
-                .map(DerMapper::mapToDto)
-                .collect(Collectors.toCollection(ArrayList<DerReadResponseDto>::new));
-
+    public static DerReadListResponseDto mapToDto(List<DerInfo> ders) {
         return DerReadListResponseDto.builder()
-                .ders(ders)
+                .ders(ders.stream()
+                        .map(DerMapper::mapToDto)
+                        .collect(Collectors.toCollection(ArrayList::new))
+                )
                 .build();
     }
 }

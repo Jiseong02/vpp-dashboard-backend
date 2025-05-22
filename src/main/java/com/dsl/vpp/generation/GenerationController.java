@@ -3,6 +3,7 @@ package com.dsl.vpp.generation;
 import com.dsl.vpp.generation.dto.request.GenerationCreateRequestDto;
 import com.dsl.vpp.generation.dto.response.GenerationReadListResponseDto;
 import com.dsl.vpp.generation.service.GenerationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import java.time.LocalDate;
 public class GenerationController {
     GenerationService generationService;
 
+    @Autowired
     GenerationController(GenerationService generationService) {
         this.generationService = generationService;
     }
